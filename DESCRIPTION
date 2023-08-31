@@ -1,11 +1,11 @@
 Package: perms
 Type: Package
 Title: Fast Permutation Computation
-Version: 1.10
+Version: 1.11
 Date: 2023-08-30
 Authors@R: 
-  c(person(given = "Moen",
-           family = "Per August Jarval",
+  c(person(family = "Moen",
+           given = "Per August Jarval",
            role = c("cre","aut"),
            email = "pamoen@math.uio.no",
            comment = c(ORCID = "0009-0003-9990-8341")),
@@ -27,11 +27,11 @@ Imports: mclust, MASS, Rdpack
 Depends: foreach, doParallel, parallel
 RdMacros: Rdpack
 NeedsCompilation: yes
-Packaged: 2023-08-30 09:22:26 UTC; peraugust
-Author: Moen Per August Jarval [cre, aut]
+Packaged: 2023-08-31 08:27:34 UTC; peraugust
+Author: Per August Jarval Moen [cre, aut]
     (<https://orcid.org/0009-0003-9990-8341>),
   Dennis Christensen [aut] (<https://orcid.org/0000-0002-7540-7695>),
   Yann Collet [cph]
-Maintainer: Moen Per August Jarval <pamoen@math.uio.no>
+Maintainer: Per August Jarval Moen <pamoen@math.uio.no>
 Repository: CRAN
-Date/Publication: 2023-08-30 19:30:07 UTC
+Date/Publication: 2023-08-31 08:50:02 UTC
