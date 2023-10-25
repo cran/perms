@@ -16,7 +16,7 @@ The log-sum-exp of the entries of the input vector.
 Computes the log sum exp of a vector. 
 Given input array = [x_1, ..., x_n], returns x_* + log(exp(x_1 - x_*) + ... + exp(x_n - x_*)),
 where x_* = max(x_1, ... x_n). Ignores entries
-with value -1, as these correspond to vanishing permanents.
+with NA value.
 }
 \examples{
 library(perms)

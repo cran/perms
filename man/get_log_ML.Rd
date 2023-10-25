@@ -4,24 +4,23 @@
 \alias{get_log_ML}
 \title{get_log_ML}
 \usage{
-get_log_ML(logperms, n, S, debug = FALSE)
+get_log_ML(log_perms, n, debug = FALSE)
 }
 \arguments{
-\item{logperms}{A vector length n containing the computed log permanents, where a zero permanent
-is indicated by a -1.}
+\item{log_perms}{A vector length n containing the computed log permanents, where a zero permanent
+is indicated by a NA value.}
 
 \item{n}{Sample size.}
-
-\item{S}{Number of samples from the data model. That is, the number of iterations in the estimator.}
 
 \item{debug}{If \code{TRUE}, debug information is printed.}
 }
 \value{
-The estimated log marginal likelihood.
+The estimated log marginal likelihood. A NA value is returned if there are no non-zero
+numbers.
 }
 \description{
 Computes the log marginal likelihood of the data from the log permanents.
-Given the computed log permanents logperms, this function computes the log marginal 
+Given the computed log permanents log_perms, this function computes the log marginal 
 likelihood using the formula (2.3) in [1]. It is assumed that there are no repeated trials.
 If the data contain repeated trials, then the appropriate log binomial factor must be added 
 to the output of this function.
@@ -35,9 +34,13 @@ y = c(rep(0, n/2), rep(1, n/2))
 S = 200
 X = matrix(runif(n*S),nrow = S, ncol = n)
 
-logperms = get_log_perms(X, t, y, n, S, debug = FALSE, parallel = FALSE, num_cores = NULL)
-logML = get_log_ML(logperms, n, S, FALSE)
-logML
+log_perms = get_log_perms(X, t, y, debug = FALSE, parallel = FALSE, num_cores = NULL)
+
+num_nonzero_perms = sum(!is.na(log_perms))
+num_nonzero_perms
+
+log_ML = get_log_ML(log_perms, n, FALSE)
+log_ML
 }
 \references{
 [1] Christensen, D (2023). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, Advance online publication, DOI: 10.1214/22-BA1353.

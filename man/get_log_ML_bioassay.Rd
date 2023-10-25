@@ -4,19 +4,11 @@
 \alias{get_log_ML_bioassay}
 \title{get_log_ML_bioassay}
 \usage{
-get_log_ML_bioassay(
-  logperms,
-  successes,
-  trials,
-  n,
-  num_trials,
-  S,
-  debug = FALSE
-)
+get_log_ML_bioassay(log_perms, successes, trials, n, debug = FALSE)
 }
 \arguments{
-\item{logperms}{A vector length n containing the computed log permanents, where a zero permanent
-is indicated by a -1.}
+\item{log_perms}{A vector length n containing the computed log permanents, where a zero permanent
+is indicated by a NA value.}
 
 \item{successes}{A vector of length n contatining the number of successful trials at
 each level.}
@@ -25,18 +17,15 @@ each level.}
 
 \item{n}{Sample size.}
 
-\item{num_trials}{Number of different trials.}
-
-\item{S}{Number of samples from the data model. That is, the number of iterations in the estimator.}
-
 \item{debug}{If \code{TRUE}, debug information is printed.}
 }
 \value{
-The estimated log marginal likelihood.
+The estimated log marginal likelihood. A NA value is returned if there are no non-zero
+numbers.
 }
 \description{
 Computes the log marginal likelihood of bioassay data from the log permanents.
-Given the computed log permanents logperms, this function computes the log marginal likelihood
+Given the computed log permanents log_perms, this function computes the log marginal likelihood
 using the formula (2.3) in [1]. It takes care of repeated trials by adding the appropriate 
 log binomial factor.
 }
@@ -79,14 +68,14 @@ get_X = function(S,n,alpha,seed){
 
 seed = 1996
 X = get_X(S, n, alpha, seed)
-logperms = get_log_perms_bioassay(X, levels, successes, trials, n, num_trials, S,
+log_perms = get_log_perms_bioassay(X, levels, successes, trials,
            debug=FALSE,parallel = FALSE)
-logml = get_log_ML_bioassay(logperms, successes, trials, n, num_trials, S)
+log_ml = get_log_ML_bioassay(log_perms, successes, trials, n)
 
-proportion = sum(logperms>-1) / S*100
+proportion = sum(!is.na(log_perms)) / S*100
 
 proportion 
-logml
+log_ml
 }
 \references{
 [1] Christensen, D (2023). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, Advance online publication, DOI: 10.1214/22-BA1353.

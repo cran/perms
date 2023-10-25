@@ -16,27 +16,32 @@ SEXP C_get_log_ML(SEXP logpermsSEXP, SEXP nSEXP, SEXP SSEXP, SEXP debugSEXP){
 	result[0] = 0;
 
 
+	// as permutation numbers are always integers, their log values are always non-negative:
   	double maxval = -1;
 
   	for (int i = 0; i < S; ++i)
   	{
-  		if(logperms[i]> maxval){
-  			maxval = logperms[i];
+  		if(!ISNAN(logperms[i])){
+  			if(logperms[i]> maxval){
+  				maxval = logperms[i];
+  			}
   		}
+  		
   	}
   	
 
   	if(maxval<=-1){
-  		*result = -DBL_MAX;
+  		// all logperms are NAN
+  		*result = NA_REAL;
   		UNPROTECT(5);
-  		error("Error! No non-zero perms in logperms");
+  		//error("Error! No non-zero perms in logperms");
   		return resultSEXP;
   	}
   	*result = Clog_sum_exp(logperms, S, maxval) - log((double)S);
 
   	// compute log factorials
-  	double * log_factorials =(double*) malloc(sizeof(double) * (n+1));
-	memset(log_factorials, 0, sizeof(double)*(n+1));
+
+	double * log_factorials = (double * ) R_Calloc(n+1, double);
 
 	log_factorials[0]=0.0;
 	for (int i = 1; i <= n; ++i)
@@ -80,24 +85,29 @@ SEXP C_get_log_ML_bioassay(SEXP logpermsSEXP, SEXP successesSEXP, SEXP trialsSEX
 
   	for (int i = 0; i < S; ++i)
   	{
-  		if(logperms[i]> maxval){
-  			maxval = logperms[i];
+  		if(!ISNAN(logperms[i])){
+  			if(logperms[i]> maxval){
+  				maxval = logperms[i];
+  			}
   		}
   	}
   
  	
 
   	if(maxval<=-1){
-  		*result = -DBL_MAX;
+  		*result = NA_REAL;
   		UNPROTECT(8);
-  		error("Error! No non-zero perms in logperms");
+  		//error("Error! No non-zero perms in logperms");
   		return resultSEXP;
   	}
   	*result = Clog_sum_exp(logperms, S, maxval) - log((double)S);
 
   	// compute log factorials
-  	double * log_factorials =(double*) malloc(sizeof(double) * (n+1));
-	memset(log_factorials, 0, sizeof(double)*(n+1));
+
+
+	double * log_factorials = (double*) R_Calloc(n+1, double);
+
+
 
 	log_factorials[0]=0.0;
 	for (int i = 1; i <= n; ++i)

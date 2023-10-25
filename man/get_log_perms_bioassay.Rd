@@ -9,9 +9,6 @@ get_log_perms_bioassay(
   levels,
   successes,
   trials,
-  n,
-  num_trials,
-  S,
   debug = FALSE,
   parallel = TRUE,
   num_cores = NULL
@@ -21,17 +18,11 @@ get_log_perms_bioassay(
 \item{X}{A matrix of dimension S x n, in which each row contains a sample from
 the data model.}
 
-\item{levels}{A vector of length n containing the levels at which trials were conducted.}
+\item{levels}{A vector containing the levels at which trials were conducted.}
 
-\item{successes}{A vector of length n containing the number of successful trials at each level.}
+\item{successes}{A vector containing the number of successful trials at each level.}
 
-\item{trials}{A vector of length n containing the number of trials at each level.}
-
-\item{n}{Sample size.}
-
-\item{num_trials}{Number of different trials.}
-
-\item{S}{Number of samples from the data model. That is, the number of iterations in the estimator.}
+\item{trials}{A vector containing the number of trials at each level.}
 
 \item{debug}{If \code{TRUE}, debug information is printed.}
 
@@ -41,7 +32,7 @@ the data model.}
 }
 \value{
 Numpy array of log permanents, each element associated to the corresponding row in X.
-A zero valued permanent is indicated by a -1.
+A zero valued permanent is indicated by a NA value.
 }
 \description{
 Computes log permanents associated with simulated latent variables X with bioassay data.
@@ -49,7 +40,7 @@ Each row of the matrix X contains a random sample of size n from the data model.
 The observed data are represented as (levels, successes, trials), where levels are the different
  levels at which trials were conducted, successes is the vector of the number of successes per level, 
  and trials is the vector of the total number of trials per level. The function returns a vector of
- log permanents corresponding to each sample.
+ log permanents corresponding to each sample. Note that n must be equal to the sum of the entries of trials.
 }
 \examples{
 ## Dirichlet toy model
@@ -90,14 +81,11 @@ get_X = function(S,n,alpha,seed){
 
 seed = 1996
 X = get_X(S, n, alpha, seed)
-logperms = get_log_perms_bioassay(X, levels, successes, trials, n, num_trials, S,
+log_perms = get_log_perms_bioassay(X, levels, successes, trials,
            debug=FALSE,parallel = FALSE)
-logml = get_log_ML_bioassay(logperms, successes, trials, n, num_trials, S)
-
-proportion = sum(logperms>-1) / S*100
+proportion = sum(!is.na(log_perms)) / S*100
 
 proportion 
-logml
 }
 \references{
 [1] Christensen, D (2023). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, Advance online publication, DOI: 10.1214/22-BA1353.

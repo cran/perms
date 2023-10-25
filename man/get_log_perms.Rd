@@ -4,7 +4,7 @@
 \alias{get_log_perms}
 \title{get_log_perms}
 \usage{
-get_log_perms(X, tt, y, n, S, debug = FALSE, parallel = TRUE, num_cores = NULL)
+get_log_perms(X, tt, y, debug = FALSE, parallel = TRUE, num_cores = NULL)
 }
 \arguments{
 \item{X}{A matrix of dimension S x n, in which each row contains a sample from
@@ -15,10 +15,6 @@ Or: A matrix of dimension S x n (if there are several covariates).}
 
 \item{y}{A vector of length n indicating whether x_i<=t_i for each i in the observed data.}
 
-\item{n}{Sample size.}
-
-\item{S}{Number of samples from the data model. That is, the number of iterations in the estimator.}
-
 \item{debug}{If \code{TRUE}, debug information is printed.}
 
 \item{parallel}{If \code{TRUE}, computation is run on several cores}
@@ -27,7 +23,7 @@ Or: A matrix of dimension S x n (if there are several covariates).}
 }
 \value{
 Numpy array of log permanents,each element associated to the corresponding row in X.
-A zero valued permanent is indicated by a -1.
+A zero valued permanent is indicated by a NA value.
 }
 \description{
 Computes log permanents associated with simulated latent variables.
@@ -49,10 +45,13 @@ y = c(rep(0, n/2), rep(1, n/2))
 S = 200
 X = matrix(runif(n*S),nrow = S, ncol = n)
 
-logperms = get_log_perms(X, t, y, n, S, debug = FALSE, parallel = FALSE, 
-                         num_cores = NULL)
-logML = get_log_ML(logperms, n, S, FALSE)
-logML
+log_perms = get_log_perms(X, t, y, debug = FALSE, parallel = FALSE, num_cores = NULL)
+
+num_nonzero_perms = sum(!is.na(log_perms))
+num_nonzero_perms
+
+log_ML = get_log_ML(log_perms, n, FALSE)
+log_ML
 }
 \references{
 [1] Christensen, D (2023). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, Advance online publication, DOI: 10.1214/22-BA1353.
