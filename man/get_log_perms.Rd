@@ -22,7 +22,7 @@ Or: A matrix of dimension S x n (if there are several covariates).}
 \item{num_cores}{(Optional) Specifies the number of cores to use if \code{parallel = TRUE}}
 }
 \value{
-Numpy array of log permanents,each element associated to the corresponding row in X.
+Vector of log permanents,each element associated to the corresponding row in X.
 A zero valued permanent is indicated by a NA value.
 }
 \description{
@@ -54,5 +54,5 @@ log_ML = get_log_ML(log_perms, n, FALSE)
 log_ML
 }
 \references{
-[1] Christensen, D (2023). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, Advance online publication, DOI: 10.1214/22-BA1353.
+[1] Christensen, D (2024). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, DOI: 10.1214/22-BA1353.
 }

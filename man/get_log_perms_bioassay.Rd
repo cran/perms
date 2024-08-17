@@ -31,7 +31,7 @@ the data model.}
 \item{num_cores}{(Optional) Specifies the number of cores to use if \code{parallel = TRUE}}
 }
 \value{
-Numpy array of log permanents, each element associated to the corresponding row in X.
+Vector of log permanents, each element associated to the corresponding row in X.
 A zero valued permanent is indicated by a NA value.
 }
 \description{
@@ -88,5 +88,5 @@ proportion = sum(!is.na(log_perms)) / S*100
 proportion 
 }
 \references{
-[1] Christensen, D (2023). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, Advance online publication, DOI: 10.1214/22-BA1353.
+[1] Christensen, D (2024). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, DOI: 10.1214/22-BA1353.
 }

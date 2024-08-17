@@ -43,5 +43,5 @@ log_ML = get_log_ML(log_perms, n, FALSE)
 log_ML
 }
 \references{
-[1] Christensen, D (2023). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, Advance online publication, DOI: 10.1214/22-BA1353.
+[1] Christensen, D (2024). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, DOI: 10.1214/22-BA1353.
 }

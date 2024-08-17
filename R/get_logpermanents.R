@@ -20,7 +20,7 @@
 #' @param debug If \code{TRUE}, debug information is printed. 
 #' @param parallel If \code{TRUE}, computation is run on several cores
 #' @param num_cores (Optional) Specifies the number of cores to use if \code{parallel = TRUE}
-#' @return Numpy array of log permanents,each element associated to the corresponding row in X.
+#' @return Vector of log permanents,each element associated to the corresponding row in X.
 #' A zero valued permanent is indicated by a NA value.
 #' @examples 
 #' library(perms)
@@ -39,7 +39,7 @@
 #' log_ML = get_log_ML(log_perms, n, FALSE)
 #' log_ML
 #' @references
-#' [1] Christensen, D (2023). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, Advance online publication, DOI: 10.1214/22-BA1353.
+#' [1] Christensen, D (2024). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, DOI: 10.1214/22-BA1353.
 #' @export
 get_log_perms= function(X, tt, y, debug=FALSE, parallel = TRUE, num_cores = NULL){
   

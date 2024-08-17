@@ -30,7 +30,7 @@
 #' log_ML = get_log_ML(log_perms, n, FALSE)
 #' log_ML
 #' @references
-#' [1] Christensen, D (2023). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, Advance online publication, DOI: 10.1214/22-BA1353.
+#' [1] Christensen, D (2024). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, DOI: 10.1214/22-BA1353.
 #' @export
 get_log_ML= function(log_perms, n, debug=FALSE){
   
@@ -55,7 +55,6 @@ get_log_ML= function(log_perms, n, debug=FALSE){
 #' @param successes A vector of length n contatining the number of successful trials at
 #' each level.
 #' @param trials A vector of length n containing the number of trials at each level.
-#' @param n Sample size. 
 #' @param debug If \code{TRUE}, debug information is printed. 
 #' @return The estimated log marginal likelihood. A NA value is returned if there are no non-zero
 #' numbers. 
@@ -100,17 +99,17 @@ get_log_ML= function(log_perms, n, debug=FALSE){
 #' X = get_X(S, n, alpha, seed)
 #' log_perms = get_log_perms_bioassay(X, levels, successes, trials,
 #'            debug=FALSE,parallel = FALSE)
-#' log_ml = get_log_ML_bioassay(log_perms, successes, trials, n)
+#' log_ml = get_log_ML_bioassay(log_perms, successes, trials)
 #' 
 #' proportion = sum(!is.na(log_perms)) / S*100
 #' 
 #' proportion 
 #' log_ml
 #' @references
-#' [1] Christensen, D (2023). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, Advance online publication, DOI: 10.1214/22-BA1353.
+#' [1] Christensen, D (2024). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, DOI: 10.1214/22-BA1353.
 #' @export
-get_log_ML_bioassay= function(log_perms, successes, trials, n, debug=FALSE){
-  
+get_log_ML_bioassay= function(log_perms, successes, trials, debug=FALSE){
+  n = sum(trials)
   if(!is.vector(log_perms)){
     stop("log_perms must be a vector")
   }
@@ -125,15 +124,12 @@ get_log_ML_bioassay= function(log_perms, successes, trials, n, debug=FALSE){
     stop("trials must have same length as successes")
   }
   
-  if(sum(trials)!= n){
-    stop("The sum of trials must be equal to n")
-  }
+ 
   res = .Call(C_get_log_ML_bioassay, as.numeric(log_perms),  as.integer(successes), as.integer(trials), 
               as.integer(n), as.integer(num_trials),as.integer(S), as.integer(debug))
   
   return(res)
 }
-
 
 
 

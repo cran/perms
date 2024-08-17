@@ -4,7 +4,7 @@
 \alias{get_log_ML_bioassay}
 \title{get_log_ML_bioassay}
 \usage{
-get_log_ML_bioassay(log_perms, successes, trials, n, debug = FALSE)
+get_log_ML_bioassay(log_perms, successes, trials, debug = FALSE)
 }
 \arguments{
 \item{log_perms}{A vector length n containing the computed log permanents, where a zero permanent
@@ -14,8 +14,6 @@ is indicated by a NA value.}
 each level.}
 
 \item{trials}{A vector of length n containing the number of trials at each level.}
-
-\item{n}{Sample size.}
 
 \item{debug}{If \code{TRUE}, debug information is printed.}
 }
@@ -70,7 +68,7 @@ seed = 1996
 X = get_X(S, n, alpha, seed)
 log_perms = get_log_perms_bioassay(X, levels, successes, trials,
            debug=FALSE,parallel = FALSE)
-log_ml = get_log_ML_bioassay(log_perms, successes, trials, n)
+log_ml = get_log_ML_bioassay(log_perms, successes, trials)
 
 proportion = sum(!is.na(log_perms)) / S*100
 
@@ -78,5 +76,5 @@ proportion
 log_ml
 }
 \references{
-[1] Christensen, D (2023). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, Advance online publication, DOI: 10.1214/22-BA1353.
+[1] Christensen, D (2024). Inference for Bayesian nonparametric models with binary response data via permutation counting. Bayesian Analysis, DOI: 10.1214/22-BA1353.
 }
